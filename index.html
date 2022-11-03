@@ -20,22 +20,20 @@
   <header class="header">
     <h1 class="visually-hidden">methed.music</h1>
     <div class="header__container">
-      <img clas="header__logo" src="images/logo.svg" alt="logo">
+      <img class="header__logo" src="images/logo.svg" alt="logo">
       <form class="header__search search" action="">
-        <input type="search__input" type="search">
+        <input class="search__input" type="search">
         <button class="search__btn">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
             <path
-              d="M15.5 14H14.71L14.43 13.73C15.41 12.59 16 11.11 16 9.5C16 5.91 13.09 3 9.5 3C5.91 3 3 5.91 3 9.5C3 13.09 5.91 16 9.5 16C11.11 16 12.59 15.41 13.73 14.43L14 14.71V15.5L19 20.49L20.49 19L15.5 14V14ZM9.5 14C7.01 14 5 11.99 5 9.5C5 7.01 7.01 5 9.5 5C11.99 5 14 7.01 14 9.5C14 11.99 11.99 14 9.5 14Z"
-              fill="black" />
+              d="M15.5 14H14.71L14.43 13.73C15.41 12.59 16 11.11 16 9.5C16 5.91 13.09 3 9.5 3C5.91 3 3 5.91 3 9.5C3 13.09 5.91 16 9.5 16C11.11 16 12.59 15.41 13.73 14.43L14 14.71V15.5L19 20.49L20.49 19L15.5 14V14ZM9.5 14C7.01 14 5 11.99 5 9.5C5 7.01 7.01 5 9.5 5C11.99 5 14 7.01 14 9.5C14 11.99 11.99 14 9.5 14Z" />
           </svg>
         </button>
       </form>
       <button class="header__favourite-btn">
         <svg width="20" height="19" viewBox="0 0 20 19" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
           <path
-            d="M10 18.35L8.55 17.03C3.4 12.36 0 9.28 0 5.5C0 2.42 2.42 0 5.5 0C7.24 0 8.91 0.81 10 2.09C11.09 0.81 12.76 0 14.5 0C17.58 0 20 2.42 20 5.5C20 9.28 16.6 12.36 11.45 17.04L10 18.35Z"
-            fill="black" />
+            d="M10 18.35L8.55 17.03C3.4 12.36 0 9.28 0 5.5C0 2.42 2.42 0 5.5 0C7.24 0 8.91 0.81 10 2.09C11.09 0.81 12.76 0 14.5 0C17.58 0 20 2.42 20 5.5C20 9.28 16.6 12.36 11.45 17.04L10 18.35Z" />
         </svg>
       </button>
     </div>
@@ -52,7 +50,7 @@
           <p class="track-info__artist">The weeknd</p>
         </div>
       </button>
-      <button class="catalog__item track">
+      <button class="catalog__item track track_active">
         <div class="track__img-wrap">
           <img class="track__poster" src="images/image2.jpg" alt="name track" width="180" height="180">
         </div>
@@ -150,6 +148,13 @@
           <p class="track-info__title">Save your tears</p>
           <p class="track-info__artist">The weeknd</p>
         </div>
+      </button>
+      <button class="catalog__btn-add">
+        <span>see all</span>
+        <svg width="8" height="12" viewBox="0 0 8 12" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0.589996 10.59L5.17 6L0.589996 1.41L2 0L8 6L2 12L0.589996 10.59Z" />
+        </svg>
+
       </button>
     </div>
     <section class="player player_active">
