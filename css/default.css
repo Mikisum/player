@@ -1,3 +1,58 @@
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::after,
+*::before {
+  box-sizing: inherit;
+}
+
 body {
-  font-family: 'SF UI Display';
+  font-family: 'SF UI Display, sans-serif';
+  font-style: 16px;
+  line-height: 1.2;
+  min-height: 100vh;
+  min-width: 320px;
+  background-image: url('../images/bacground.jpg');
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+}
+
+img,
+svg {
+  max-width: 100%;
+  min-height: 100%;
+  height: auto;
+}
+
+button {
+  padding: 0;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+.visually-hidden {
+  position: fixed;
+  transform: scale(0);
 }
