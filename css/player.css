@@ -8,11 +8,11 @@
   border-radius: 20px;
   max-width: 1228px;
   margin: 0 auto;
-  transition: bottom .5 ease-in-out;
   padding: 24px;
 }
 
 .player_active {
+  transition: bottom .8 ease-in-out;
   bottom: 26px;
 }
 
