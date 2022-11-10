@@ -80,6 +80,10 @@
   background: url('../images/fav.svg');
 }
 
+.player__icon_fav_active {
+  filter: drop-shadow(0 0 2px tomato);
+}
+
 .player__icon_mute,
 .player__icon_mute-off:hover {
   background: url('../images/volume-on.svg');

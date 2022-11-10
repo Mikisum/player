@@ -85,7 +85,12 @@ const dataMusic = [
   },
 ];
 
+const favourites = localStorage.getItem('favourites')
+  ? JSON.parse(localStorage.getItem('favourites'))
+  : []
+
 const audio = new Audio()
+const favBtn = document.querySelector('.header__favourite-btn')
 const catalogContainer = document.querySelector('.catalog__container')
 const tracksCard = document.getElementsByClassName('track')
 const player = document.querySelector('.player')
@@ -93,7 +98,7 @@ const pauseBtn = document.querySelector('.player__controller-pause')
 const stopBtn = document.querySelector('.player__controller-stop')
 const prevBtn = document.querySelector('.player__controller-prev')
 const nextBtn = document.querySelector('.player__controller-next')
-const likeBtn = document.querySelector('.player__controller-like')
+const likeBtn = document.querySelector('.player__controller-fav')
 const muteBtn = document.querySelector('.player__controller-mute')
 const playerProgressInput = document.querySelector('.player__progress-input')
 const playerTimePassed = document.querySelector('.player__time-passed')
@@ -134,6 +139,14 @@ const playMusic = event => {
 
   let i = 0
   const id = trackActive.dataset.idTrack
+
+  const index = favourites.indexOf(id)
+  if (index !== -1) {
+    likeBtn.classList.add('player__icon_fav_active')
+  } else {
+    likeBtn.classList.remove('player__icon_fav_active')
+  }
+
   const track = dataMusic.find((item, index) => {
     i = index
     return id === item.id
@@ -148,7 +161,7 @@ const playMusic = event => {
   const nextTrack = i + 1 === dataMusic.length ? 0 : i + 1
   prevBtn.dataset.idTrack = dataMusic[prevTrack].id
   nextBtn.dataset.idTrack = dataMusic[nextTrack].id
-
+  likeBtn.dataset.idTrack = id
 
   for (let i = 0; i < tracksCard.length; i++) {
     if (id === tracksCard[i].dataset.idTrack) {
@@ -249,6 +262,23 @@ const init = () => {
     const progress = playerProgressInput.value
     audio.currentTime = (progress / playerProgressInput.max) * audio.duration
     console.log('progress: ', progress);
+  })
+
+  favBtn.addEventListener('click', () => {
+
+  })
+
+  likeBtn.addEventListener('click', () => {
+    const index = favourites.indexOf(likeBtn.dataset.idTrack)
+    if (index === -1) {
+      favourites.push(likeBtn.dataset.idTrack)
+      likeBtn.classList.add('player__icon_fav_active')
+    } else {
+      favourites.splice(index, 1)
+      likeBtn.classList.remove('player__icon_fav_active')
+    }
+
+    localStorage.setItem('favourites', JSON.stringify(favourites))
   })
 }
 
