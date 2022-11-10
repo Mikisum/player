@@ -126,6 +126,7 @@ const pausePlayer = () => {
 const playMusic = event => {
   event.preventDefault()
   const trackActive = event.currentTarget
+
   if (trackActive.classList.contains('track_active')) {
     pausePlayer()
     return
@@ -150,10 +151,12 @@ const playMusic = event => {
 
 
   for (let i = 0; i < tracksCard.length; i++) {
-    tracksCard[i].classList.remove('track_active')
+    if (id === tracksCard[i].dataset.idTrack) {
+      tracksCard[i].classList.add('track_active')
+    } else {
+      tracksCard[i].classList.remove('track_active')
+    }
   }
-  trackActive.classList.add('track_active')
-
 }
 
 const addHandlerTrack = () => {
