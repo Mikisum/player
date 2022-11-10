@@ -170,6 +170,7 @@ pauseBtn.addEventListener('click', pausePlayer)
 stopBtn.addEventListener('click', () => {
   player.classList.remove('player_active')
   audio.src = ''
+  document.querySelector('.track_active').classList.remove('track_active')
 })
 
 const createCard = (data) => {
@@ -234,9 +235,16 @@ const init = () => {
       catalogAddBtn.remove()
     });
   })
+
   prevBtn.addEventListener('click', playMusic)
   nextBtn.addEventListener('click', playMusic)
+
+  audio.addEventListener('ended', () => {
+    nextBtn.dispatchEvent(new Event('click', { bubbles: true }))
+  })
+
   audio.addEventListener('timeupdate', updateTime)
+
   playerProgressInput.addEventListener('change', () => {
     const progress = playerProgressInput.value
     audio.currentTime = (progress / playerProgressInput.max) * audio.duration
