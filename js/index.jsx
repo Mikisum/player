@@ -85,11 +85,14 @@ const dataMusic = [
   },
 ];
 
+let playList = []
+
 const favourites = localStorage.getItem('favourites')
   ? JSON.parse(localStorage.getItem('favourites'))
   : []
 
 const audio = new Audio()
+const headerLogo = document.querySelector('header__logo')
 const favBtn = document.querySelector('.header__favourite-btn')
 const catalogContainer = document.querySelector('.catalog__container')
 const tracksCard = document.getElementsByClassName('track')
@@ -147,7 +150,7 @@ const playMusic = event => {
     likeBtn.classList.remove('player__icon_fav_active')
   }
 
-  const track = dataMusic.find((item, index) => {
+  const track = playList.find((item, index) => {
     i = index
     return id === item.id
   })
@@ -157,10 +160,10 @@ const playMusic = event => {
   pauseBtn.classList.remove('player__icon_play')
   player.classList.add('player_active')
 
-  const prevTrack = i === 0 ? dataMusic.length - 1 : i - 1
-  const nextTrack = i + 1 === dataMusic.length ? 0 : i + 1
-  prevBtn.dataset.idTrack = dataMusic[prevTrack].id
-  nextBtn.dataset.idTrack = dataMusic[nextTrack].id
+  const prevTrack = i === 0 ? playList.length - 1 : i - 1
+  const nextTrack = i + 1 === playList.length ? 0 : i + 1
+  prevBtn.dataset.idTrack = playList[prevTrack].id
+  nextBtn.dataset.idTrack = playList[nextTrack].id
   likeBtn.dataset.idTrack = id
 
   for (let i = 0; i < tracksCard.length; i++) {
@@ -203,9 +206,10 @@ const createCard = (data) => {
   return card
 }
 
-const renderCatalog = (dataList) => {
+const renderCatalog = (dataMusic) => {
+  playList = [...dataMusic]
   catalogContainer.textContent = ''
-  const listCards = dataList.map(createCard)
+  const listCards = dataMusic.map(createCard)
   catalogContainer.append(...listCards)
   addHandlerTrack()
   console.log('listCards: ', listCards);
@@ -265,7 +269,12 @@ const init = () => {
   })
 
   favBtn.addEventListener('click', () => {
+    const data = dataMusic.filter((item) => favourites.includes(item.id))
+    renderCatalog(data)
+  })
 
+  headerLogo.addEventListener('click', () => {
+    renderCatalog(dataMusic)
   })
 
   likeBtn.addEventListener('click', () => {
