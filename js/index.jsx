@@ -92,7 +92,7 @@ const favourites = localStorage.getItem('favourites')
   : []
 
 const audio = new Audio()
-const headerLogo = document.querySelector('header__logo')
+const headerLogo = document.querySelector('.header__logo')
 const favBtn = document.querySelector('.header__favourite-btn')
 const catalogContainer = document.querySelector('.catalog__container')
 const tracksCard = document.getElementsByClassName('track')
@@ -102,10 +102,11 @@ const stopBtn = document.querySelector('.player__controller-stop')
 const prevBtn = document.querySelector('.player__controller-prev')
 const nextBtn = document.querySelector('.player__controller-next')
 const likeBtn = document.querySelector('.player__controller-fav')
-const muteBtn = document.querySelector('.player__controller-mute')
+const muteBtn = document.querySelector('.player__icon_mute')
 const playerProgressInput = document.querySelector('.player__progress-input')
 const playerTimePassed = document.querySelector('.player__time-passed')
 const playerTimeTotal = document.querySelector('.player__time-total')
+const playerVolume = document.querySelector('.player__volume-input')
 
 const catalogAddBtn = document.createElement('button')
 catalogAddBtn.classList.add('catalog__btn-add')
@@ -243,6 +244,8 @@ const updateTime = () => {
 }
 
 const init = () => {
+  audio.volume = localStorage.getItem('volume') || 1
+  playerVolume.value = audio.volume * 100
   renderCatalog(dataMusic)
   checkCount()
 
@@ -265,7 +268,6 @@ const init = () => {
   playerProgressInput.addEventListener('change', () => {
     const progress = playerProgressInput.value
     audio.currentTime = (progress / playerProgressInput.max) * audio.duration
-    console.log('progress: ', progress);
   })
 
   favBtn.addEventListener('click', () => {
@@ -275,6 +277,7 @@ const init = () => {
 
   headerLogo.addEventListener('click', () => {
     renderCatalog(dataMusic)
+    checkCount()
   })
 
   likeBtn.addEventListener('click', () => {
@@ -288,6 +291,25 @@ const init = () => {
     }
 
     localStorage.setItem('favourites', JSON.stringify(favourites))
+  })
+
+  playerVolume.addEventListener('input', () => {
+    const value = playerVolume.value
+    audio.volume = value / 100
+    localStorage.setItem('volume', audio.volume)
+  })
+
+  muteBtn.addEventListener('click', () => {
+    if (audio.volume) {
+      localStorage.setItem('volume', audio.volume)
+      audio.volume = 0
+      muteBtn.classList.add('player__icon_mute-off')
+      playerVolume.value = 0
+    } else {
+      audio.volume = localStorage.getItem('volume')
+      muteBtn.classList.remove('player__icon_mute-off')
+      playerVolume.value = audio.volume * 100
+    }
   })
 }
 
