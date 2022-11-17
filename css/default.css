@@ -8,16 +8,23 @@ html {
   box-sizing: inherit;
 }
 
+:root {
+  --main-color: #a7a7a7;
+  --secondary-color: #ffffff;
+  --primary-color: #7927f0;
+  --bg-color: #181818;
+  --bg-active-color: #2d2d2d
+}
+
 body {
   font-family: 'SF UI Display, sans-serif';
   font-style: 16px;
+  color: var(--main-color);
   line-height: 1.2;
   min-height: 100vh;
   min-width: 320px;
-  background-image: url('../images/bacground.jpg');
-  background-size: cover;
-  background-attachment: fixed;
-  background-position: center;
+  background: rgb(4, 4, 4);
+  background: linear-gradient(0deg, rgba(14, 14, 14, 1) 90%, rgba(50, 14, 102, 1) 100%);
   padding-bottom: 172px;
 }
 

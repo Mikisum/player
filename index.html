@@ -14,16 +14,17 @@
   <meta name="theme-color" content="#1e5a32">
   <link rel="stylesheet" href="css/index.css">
   <script src="js/index.jsx" defer></script>
+  <script src="https://kit.fontawesome.com/bafb7eace9.js" crossorigin="anonymous"></script>
   <title>Methed.music</title>
 </head>
 
 <body>
   <header class="header">
-    <h1 class="visually-hidden">methed.music</h1>
+
     <div class="header__container">
-      <img class="header__logo" src="images/logo.svg" alt="logo">
+      <h1 class="header__logo">MiPlayer</h1>
       <form class="header__search search" action="">
-        <input class="search__input" type="search">
+        <input class="search__input" type="search" name="search">
         <button class="search__btn">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
             <path
@@ -32,10 +33,7 @@
         </button>
       </form>
       <button class="header__favourite-btn">
-        <svg width="20" height="19" viewBox="0 0 20 19" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-          <path
-            d="M10 18.35L8.55 17.03C3.4 12.36 0 9.28 0 5.5C0 2.42 2.42 0 5.5 0C7.24 0 8.91 0.81 10 2.09C11.09 0.81 12.76 0 14.5 0C17.58 0 20 2.42 20 5.5C20 9.28 16.6 12.36 11.45 17.04L10 18.35Z" />
-        </svg>
+        <i class="fa-solid fa-heart "></i>
       </button>
     </div>
   </header>
@@ -50,27 +48,40 @@
           <p class="track-info__artist">The weeknd</p>
         </div>
         <div class="player__controller">
-          <button class="player__icon  player__icon_stop player__controller-stop"></button>
-          <button class="player__icon player__icon_prev player__controller-prev"></button>
-          <button class="player__icon player__icon_pause player__controller-pause"></button>
-          <button class="player__icon player__icon_next player__controller-next"></button>
-          <button class="player__icon player__icon_fav player__controller-fav"></button>
+          <button class="player__icon  player__icon_stop player__controller-stop">
+            <i class="fa fa-solid fa-stop"></i>
+          </button>
+          <button class="player__icon player__icon_prev player__controller-prev">
+            <i class="fa fa-solid fa-backward-step"></i>
+          </button>
+          <button class="player__icon player__icon_pause player__controller-pause">
+            <i class="fa-solid fa-circle-play fa-2xl" id="play"></i>
+          </button>
+          <button class="player__icon player__icon_next player__controller-next">
+            <i class="fa-solid fa-forward-step"></i>
+          </button>
+          <button class="player__icon player__icon_fav player__controller-fav">
+            <i class="fa-regular fa-heart" id="like"></i>
+          </button>
         </div>
         <div class="player__progress-wrap">
+          <div><span class="player__time-passed">0:24</span></div>
+
           <div class="player__progress">
             <input type="range" class="player__progress-input" min=0 max=1000 value="0">
           </div>
-          <p class="player__time">
-            <span class="player__time-passed">0:24</span>
-            <span>/</span>
-            <span class="player__time-total">4:31</span>
-          </p>
+          <div><span class="player__time-total">4:31</span></div>
+
         </div>
         <div class="player__volume-wrap">
           <div class="player__volume">
             <input type="range" class="player__icon player__volume-input" min="0" max="100">
+            </input>
           </div>
-          <button class="player__icon player__icon_mute"></button>
+
+          <button class="player__icon player__icon_mute">
+            <i class="fa-solid fa-volume-low"></i>
+          </button>
         </div>
       </div>
     </section>

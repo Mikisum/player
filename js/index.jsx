@@ -1,89 +1,6 @@
-const dataMusic = [
-  {
-    id: '1',
-    artist: 'The weeknd',
-    track: 'Save your tears',
-    poster: 'images/image1.jpg',
-    mp3: 'audio/The Weeknd - Save Your Tears.mp3',
-  },
-  {
-    id: '2',
-    artist: 'Imagine Dragons',
-    track: 'Follow You',
-    poster: 'images/image2.jpg',
-    mp3: 'audio/Imagine Dragons - Follow You.mp3',
-  },
-  {
-    id: '3',
-    artist: 'Tove Lo',
-    track: 'How Long',
-    poster: 'images/image3.jpg',
-    mp3: 'audio/Tove Lo - How Long.mp3',
-  },
-  {
-    id: '4',
-    artist: 'Tom Odell',
-    track: 'Another Love',
-    poster: 'images/image4.jpg',
-    mp3: 'audio/Tom Odell - Another Love.mp3',
-  },
-  {
-    id: '5',
-    artist: 'Lana Del Rey',
-    track: 'Born To Die',
-    poster: 'images/image5.jpg',
-    mp3: 'audio/Lana Del Rey - Born To Die.mp3',
-  },
-  {
-    id: '6',
-    artist: 'Adele',
-    track: 'Hello',
-    poster: 'images/image6.jpg',
-    mp3: 'audio/Adele - Hello.mp3',
-  },
-  {
-    id: '7',
-    artist: 'Tom Odell',
-    track: "Can't Pretend",
-    poster: 'images/image7.jpg',
-    mp3: "audio/Tom Odell - Can't Pretend.mp3",
-  },
-  {
-    id: '8',
-    artist: 'Lana Del Rey',
-    track: 'Young And Beautiful',
-    poster: 'images/image8.jpg',
-    mp3: 'audio/Lana Del Rey - Young And Beautiful.mp3',
-  },
-  {
-    id: '9',
-    artist: 'Adele',
-    track: 'Someone Like You',
-    poster: 'images/image9.jpg',
-    mp3: 'audio/Adele - Someone Like You.mp3',
-  },
-  {
-    id: '10',
-    artist: 'Imagine Dragons',
-    track: 'Natural',
-    poster: 'images/image10.jpg',
-    mp3: 'audio/Imagine Dragons - Natural.mp3',
-  },
-  {
-    id: '11',
-    artist: 'Drake',
-    track: 'Laugh Now Cry Later',
-    poster: 'images/image11.jpg',
-    mp3: 'audio/Drake - Laugh Now Cry Later.mp3',
-  },
-  {
-    id: '12',
-    artist: 'Madonna',
-    track: 'Frozen',
-    poster: 'images/image12.jpg',
-    mp3: 'audio/Madonna - Frozen.mp3',
-  },
-];
+const API_URL = 'http://localhost:3024/'
+
+let dataMusic = [];
 
 let playList = []
 
@@ -92,6 +9,7 @@ const favourites = localStorage.getItem('favourites')
   : []
 
 const audio = new Audio()
+const header = document.querySelector('.header')
 const headerLogo = document.querySelector('.header__logo')
 const favBtn = document.querySelector('.header__favourite-btn')
 const catalogContainer = document.querySelector('.catalog__container')
@@ -102,14 +20,18 @@ const stopBtn = document.querySelector('.player__controller-stop')
 const prevBtn = document.querySelector('.player__controller-prev')
 const nextBtn = document.querySelector('.player__controller-next')
 const likeBtn = document.querySelector('.player__controller-fav')
+const likeIcon = document.getElementById('like')
 const muteBtn = document.querySelector('.player__icon_mute')
+const muteIcon = document.querySelector('.fa-volume-low')
 const playerProgressInput = document.querySelector('.player__progress-input')
 const playerTimePassed = document.querySelector('.player__time-passed')
 const playerTimeTotal = document.querySelector('.player__time-total')
 const playerVolume = document.querySelector('.player__volume-input')
-
+const search = document.querySelector('.search')
+const playIcon = document.getElementById('play')
 const catalogAddBtn = document.createElement('button')
 catalogAddBtn.classList.add('catalog__btn-add')
+
 catalogAddBtn.innerHTML = `
   <span>see all</span>
   <svg width="8" height="12" viewBox="0 0 8 12" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -121,13 +43,12 @@ const pausePlayer = () => {
   const trackActive = document.querySelector('.track_active')
   if (audio.paused) {
     audio.play()
-    pauseBtn.classList.remove('player__icon_play')
-    console.log(trackActive)
+    playIcon.classList.replace('fa-circle-play', 'fa-circle-pause')
     trackActive.classList.remove('track_pause')
 
   } else {
     audio.pause()
-    pauseBtn.classList.add('player__icon_play')
+    playIcon.classList.replace('fa-circle-pause', 'fa-circle-play')
     trackActive.classList.add('track_pause')
   }
 }
@@ -146,20 +67,21 @@ const playMusic = event => {
 
   const index = favourites.indexOf(id)
   if (index !== -1) {
-    likeBtn.classList.add('player__icon_fav_active')
+    likeIcon.classList.replace('fa-regular', 'fa-solid')
   } else {
-    likeBtn.classList.remove('player__icon_fav_active')
+    likeIcon.classList.replace('fa-solid', 'fa-regular')
   }
 
   const track = playList.find((item, index) => {
     i = index
     return id === item.id
   })
-  audio.src = track.mp3
+  audio.src = `${API_URL}${track.mp3}`
 
   audio.play()
-  pauseBtn.classList.remove('player__icon_play')
+  playIcon.classList.replace('fa-circle-play', 'fa-circle-pause')
   player.classList.add('player_active')
+  player.dataset.idTrack = id
 
   const prevTrack = i === 0 ? playList.length - 1 : i - 1
   const nextTrack = i + 1 === playList.length ? 0 : i + 1
@@ -182,7 +104,7 @@ const addHandlerTrack = () => {
   }
 }
 
-pauseBtn.addEventListener('click', pausePlayer)
+playIcon.addEventListener('click', pausePlayer)
 
 stopBtn.addEventListener('click', () => {
   player.classList.remove('player_active')
@@ -194,10 +116,16 @@ const createCard = (data) => {
   const card = document.createElement('a')
   card.href = '#'
   card.classList.add('catalog__item', 'track')
+  if (player.dataset.idTrack === data.id) {
+    card.classList.add('track_active')
+    if (audio.paused) {
+      card.classList.add('track_pause')
+    }
+  }
   card.dataset.idTrack = data.id
   card.innerHTML = `
     <div class="track__img-wrap">
-      <img class="track__poster" src=${data.poster} alt=${data.artist} width="180" height="180">
+      <img class="track__poster" src=${API_URL}${data.poster} alt=${data.artist} width="180" height="180">
     </div>
     <div class="track__info track-info">
       <p class="track-info__title">${data.track}</p>
@@ -207,22 +135,46 @@ const createCard = (data) => {
   return card
 }
 
+window.onscroll = function () {
+  if (window.scrollY > 50) {
+    header.classList.add('header_active')
+  } else {
+    header.classList.remove('header_active')
+  }
+}
+
 const renderCatalog = (dataMusic) => {
   playList = [...dataMusic]
   catalogContainer.textContent = ''
   const listCards = dataMusic.map(createCard)
   catalogContainer.append(...listCards)
   addHandlerTrack()
-  console.log('listCards: ', listCards);
 }
 
 const checkCount = (i = 1) => {
   tracksCard[0]
-  if (catalogContainer.clientHeight > tracksCard[0].clientHeight * 3) {
-    tracksCard[tracksCard.length - i].style.display = 'none'
-    checkCount(i + 1)
-  } else if (i !== 1) {
-    catalogContainer.append(catalogAddBtn)
+  if (tracksCard.length !== 0) {
+
+    if (catalogContainer.clientHeight > tracksCard[0].clientHeight * 3) {
+      tracksCard[tracksCard.length - i].style.display = 'none'
+      checkCount(i + 1)
+    } else if (i !== 1) {
+      catalogContainer.append(catalogAddBtn)
+    }
+  } else {
+    catalogContainer.innerHTML = `<div class="catalog__container-error">not found</div>`
+  }
+}
+
+const throttle = (callee, timeout) => {
+  let timer = null
+  return function perform(...args) {
+    if (timer) return
+    timer = setTimeout(() => {
+      callee(...args)
+      clearTimeout(timer)
+      timer = null
+    }, timeout)
   }
 }
 
@@ -243,9 +195,11 @@ const updateTime = () => {
 
 }
 
-const init = () => {
+const init = async () => {
   audio.volume = localStorage.getItem('volume') || 1
   playerVolume.value = audio.volume * 100
+
+  const dataMusic = await fetch(`${API_URL}api/music`).then(data => data.json())
   renderCatalog(dataMusic)
   checkCount()
 
@@ -263,7 +217,9 @@ const init = () => {
     nextBtn.dispatchEvent(new Event('click', { bubbles: true }))
   })
 
-  audio.addEventListener('timeupdate', updateTime)
+  const updateTimeThrottle = throttle(updateTime, 500)
+
+  audio.addEventListener('timeupdate', updateTimeThrottle)
 
   playerProgressInput.addEventListener('change', () => {
     const progress = playerProgressInput.value
@@ -284,12 +240,15 @@ const init = () => {
     const index = favourites.indexOf(likeBtn.dataset.idTrack)
     if (index === -1) {
       favourites.push(likeBtn.dataset.idTrack)
-      likeBtn.classList.add('player__icon_fav_active')
+      likeIcon.classList.replace('fa-regular', 'fa-solid')
+      likeIcon.classList.add('player__icon-active')
+
     } else {
       favourites.splice(index, 1)
-      likeBtn.classList.remove('player__icon_fav_active')
-    }
+      likeIcon.classList.replace('fa-solid', 'fa-regular')
+      likeIcon.classList.remove('player__icon-active')
 
+    }
     localStorage.setItem('favourites', JSON.stringify(favourites))
   })
 
@@ -303,13 +262,22 @@ const init = () => {
     if (audio.volume) {
       localStorage.setItem('volume', audio.volume)
       audio.volume = 0
-      muteBtn.classList.add('player__icon_mute-off')
+      muteIcon.classList.replace('fa-volume-low', 'fa-volume-xmark')
       playerVolume.value = 0
     } else {
       audio.volume = localStorage.getItem('volume')
-      muteBtn.classList.remove('player__icon_mute-off')
+      muteIcon.classList.replace('fa-volume-xmark', 'fa-volume-low')
       playerVolume.value = audio.volume * 100
     }
+  })
+
+  search.addEventListener('submit', async (event) => {
+    event.preventDefault()
+    playList = await fetch(`${API_URL}api/music?search=${search.search.value}`)
+      .then(data => data.json())
+      .catch(error => console.log(error))
+    renderCatalog(playList)
+    checkCount()
   })
 }
 
