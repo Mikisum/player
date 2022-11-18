@@ -15,6 +15,8 @@ const favBtn = document.querySelector('.header__favourite-btn')
 const catalogContainer = document.querySelector('.catalog__container')
 const tracksCard = document.getElementsByClassName('track')
 const player = document.querySelector('.player')
+const trackTitle = document.querySelector('.track-info__title')
+const trackArtist = document.querySelector('.track-info__artist')
 const pauseBtn = document.querySelector('.player__controller-pause')
 const stopBtn = document.querySelector('.player__controller-stop')
 const prevBtn = document.querySelector('.player__controller-prev')
@@ -77,6 +79,8 @@ const playMusic = event => {
     return id === item.id
   })
   audio.src = `${API_URL}${track.mp3}`
+  trackTitle.textContent = track.track
+  trackArtist.textContent = track.artist
 
   audio.play()
   playIcon.classList.replace('fa-circle-play', 'fa-circle-pause')
