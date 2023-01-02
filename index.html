@@ -8,19 +8,21 @@
   <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
-  <link rel="manifest" href="/site.webmanifest">
+  <!-- <link rel="manifest" href="/site.webmanifest"> -->
   <link rel="mask-icon" href="icons/safari-pinned-tab.svg" color="#1e5a32">
   <meta name="msapplication-TileColor" content="#1e5a32">
   <meta name="theme-color" content="#1e5a32">
   <link rel="stylesheet" href="css/index.css">
-  <script src="js/index.jsx" defer></script>
+  <script type="module" src="./js/indexMain.js" defer></script>
+  <!-- <script type="module" src="./js/index.js" defer></script> -->
+
   <script src="https://kit.fontawesome.com/bafb7eace9.js" crossorigin="anonymous"></script>
   <title>Methed.music</title>
 </head>
 
 <body>
   <header class="header">
-
+    <button id="logout">LOGOUT</button>
     <div class="header__container">
       <h1 class="header__logo">MiPlayer</h1>
       <form class="header__search search" action="">

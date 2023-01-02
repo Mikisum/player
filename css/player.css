@@ -88,7 +88,6 @@
 
 .player__progress-input::-webkit-slider-thumb,
 .player__volume-input::-webkit-slider-thumb {
-  -webkit-appearance: none;
   margin-top: -5px;
   width: 12px;
   height: 18px;

@@ -38,7 +38,7 @@ svg {
 button {
   padding: 0;
   cursor: pointer;
-  background-color: transparent;
+  /* background-color: transparent; */
   border: none;
 }
 
