@@ -48,6 +48,10 @@
   transform: scale(1.3);
 }
 
+.player__icon:hover {
+  color: var(--secondary-color);
+}
+
 .player__icon-active {
   color: var(--primary-color);
 }
@@ -66,38 +70,25 @@
 .player__progress-input,
 .player__volume-input {
   width: 100%;
-  padding: 8px 0px 4px 0px;
+  background: linear-gradient(90deg, var(--secondary-color) 60%, var(--secondary-color) 60%);
+  border-radius: 20px;
+  height: 0.3em;
   cursor: pointer;
-  background-color: transparent;
   appearance: none;
   -webkit-appearance: none;
 }
 
-.player__progress-input::-webkit-slider-runnable-track,
-.player__volume-input::-webkit-slider-runnable-track {
-  background-color: var(--main-color);
-  border: none;
-  border-radius: 20px;
-  height: 6px;
-  transition: background-color .2s ease-in-out;
-}
-
-.player__volume-input::-webkit-slider-runnable-track {
-  height: 0.2em;
+.player__progress-input {
+  margin-bottom: 0.5em;
 }
 
 .player__progress-input::-webkit-slider-thumb,
 .player__volume-input::-webkit-slider-thumb {
   -webkit-appearance: none;
-  margin-top: -5px;
   width: 12px;
-  height: 18px;
+  height: 16px;
   background: #ffffff;
-  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.25);
   border-radius: 30px;
-  border: 1px solid transparent;
-  transition: background-color .2s ease-in-out;
-  transition: border.2s ease-in-out;
 }
 
 .player__volume-input::-webkit-slider-thumb {
@@ -113,18 +104,6 @@
   background-color: var(--bg-color);
 }
 
-.player__progress-input:hover::-webkit-slider-runnable-track,
-.player__volume-input:hover::-webkit-slider-runnable-track {
-  background-color: var(--primary-color);
-}
-
-.player__progress-input:hover::-webkit-slider-thumb,
-.player__progress-input:focus::-webkit-slider-thumb,
-.player__volume-input:hover::-webkit-slider-thumb,
-.player__volume-input:focus::-webkit-slider-thumb {
-  border-color: #000;
-}
-
 .player__volume-wrap {
   display: flex;
   align-items: center;
@@ -133,12 +112,14 @@
 
 .player__volume-input {
   width: 100%;
-  height: 100%;
+  height: 0.2em;
   appearance: none;
   -webkit-appearance: none;
   background-color: transparent;
   cursor: pointer;
 }
+
+.player__time-passed {}
 
 @media (max-width: 1024px) {
   .player__container {
