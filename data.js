@@ -90,4 +90,32 @@ export const dataMusic = [
     poster: 'images/image13.jpg',
     mp3: 'audio/Daniel Leggs - crutches.mp3',
   },
+  {
+    id: '14',
+    artist: 'Samuel Jack',
+    track: 'Trouble',
+    poster: 'images/image14.jpg',
+    mp3: 'audio/Samuel Jack - Trouble.mp3',
+  },
+  {
+    id: '15',
+    artist: 'Xolidayboy',
+    track: 'Моя хулиганка',
+    poster: 'images/image15.jpg',
+    mp3: 'audio/Xolidayboy - Моя хулиганка.mp3',
+  },
+  {
+    id: '16',
+    artist: 'Imagine Dragons',
+    track: 'Bones',
+    poster: 'images/image16.jpg',
+    mp3: 'audio/Imagine Dragons - Bones.mp3',
+  },
+  {
+    id: '17',
+    artist: 'Chymes',
+    track: 'All Time Low',
+    poster: 'images/image17.jpg',
+    mp3: 'audio/Chymes - All Time Low.mp3',
+  },
 ];

@@ -245,8 +245,6 @@ import { dataMusic } from "../data.js"
 
     playerProgressInput.addEventListener('change', () => {
       const progress = playerProgressInput.value
-      console.log('progress: ', playerProgressInput.clientWidth);
-
       audio.currentTime = (progress / playerProgressInput.max) * audio.duration
     })
 
