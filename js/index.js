@@ -28,6 +28,7 @@ import { dataMusic } from "../data.js"
   const playerTimeTotal = document.querySelector('.player__time-total')
   const playerVolume = document.querySelector('.player__volume-input')
   const search = document.querySelector('.search')
+  const searchInput = document.querySelector('.search__input')
   const playIcon = document.getElementById('play')
 
 
@@ -184,19 +185,12 @@ import { dataMusic } from "../data.js"
 
   const updateTime = () => {
     const duration = audio.duration
-    console.log('duration: ', duration);
-
     const currentTime = audio.currentTime
-    console.log('currentTime: ', currentTime);
     const progress = (currentTime / duration) * playerProgressInput.max
     const progressColor = (currentTime * 100) / duration
-    console.log('progress: ', progress);
-
     playerProgressInput.value = progress ? progress : 0
-    console.log('playerProgressInput: ', playerProgressInput.value);
 
     let rangeColor = `linear-gradient(90deg, var(--primary-color) ${progressColor}%, var(--secondary-color) ${progressColor}%)`
-    console.log('rangeColor: ', rangeColor);
 
     playerProgressInput.style.background = rangeColor
     const minutesPassed = Math.floor(currentTime / 60) || '0'
@@ -227,6 +221,13 @@ import { dataMusic } from "../data.js"
     catalogAddBtn.classList.add('catalog__btn-add')
 
     return catalogAddBtn
+  }
+
+  const filterTracks = () => {
+    let filterValue = searchInput.value.toUpperCase()
+    let matchingTracks = dataMusic.filter(track =>
+      track.track.toUpperCase().includes(filterValue))
+    renderCatalog(matchingTracks)
   }
 
   const addEventListener = () => {
@@ -302,6 +303,8 @@ import { dataMusic } from "../data.js"
         .then(renderCatalog)
         .catch(error => console.log(error))
     })
+
+    searchInput.addEventListener('input', filterTracks)
   }
 
   const init = () => {
